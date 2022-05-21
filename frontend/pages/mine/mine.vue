@@ -28,28 +28,33 @@
 				navs: [{
 						icon :'/static/icons/antFill-bulb.svg',
 						title: '全部订单',
-						// path: '/pages/goods/goods'
+						path: '/pages/order/order?index=0'
 					},
 					{
 						icon :'/static/icons/fas fa-info-circle.svg',
 						title: '待付款',
-						// path: '/pages/contact/contact'
+						path: '/pages/order/order?index=1'
 					},
 					{
 						icon :'/static/icons/mb-question-filled.svg',
 						title: '待提货',
-						// path: '/pages/pics/pics'
+						path: '/pages/order/order?index=2'
 					},
 					{
 						icon :'/static/icons/antOutline-customer-service Copy.svg',
 						title: '已提货',
-						// path: '/pages/videos/videos'
+						path: '/pages/order/order?index=3'
 					}
 				]
 			}
 		},
 		methods: {
-
+			navItemClick (url) {
+				// console.log(url)
+				uni.navigateTo({
+					url
+				})
+			},
 		}
 	}
 </script>

@@ -1,0 +1,213 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+uni-search-bar {
+  z-index: 2;
+  position: fixed;
+  top: -5px;
+  left: 5px;
+  width: 351px;
+  border-radius: 15px;
+  color: #888888;
+  text-align: center;
+}
+.header {
+  z-index: 1;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 375px;
+  height: 95px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.04);
+}
+.header .tabbar {
+  margin-top: 130rpx;
+  display: flex;
+}
+.header .tabbar view {
+  width: 42px;
+  height: 20px;
+  font-size: 14px;
+  text-align: center;
+  font-family: PingFangSC-regular;
+  margin: auto;
+  color: #101010;
+}
+.header .tabbar .activeTab {
+  color: #0050b3;
+}
+.header .tabbar .activeTab view:nth-child(2) {
+  width: 16px;
+  height: 3px;
+  line-height: 20px;
+  border-radius: 22px;
+  background-color: #0050b3;
+  color: #0050b3;
+  font-size: 14px;
+  text-align: center;
+  font-family: Arial;
+  margin: auto;
+}
+.cards-style {
+  position: absolute;
+  top: 200rpx;
+  margin-bottom: 100rpx;
+}
+.cards-style .card-style {
+  width: 360px;
+  height: 210px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  margin: 20rpx 20rpx 20rpx 20rpx;
+}
+.cards-style .card-style .top {
+  display: flex;
+  height: 19px;
+}
+.cards-style .card-style .top text {
+  width: auto;
+  line-height: 19px;
+  font-size: 13px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.cards-style .card-style .top .label1 {
+  margin-left: 14px;
+  margin-top: 10px;
+}
+.cards-style .card-style .top .label2 {
+  margin-left: 206px;
+  margin-top: 10px;
+}
+.cards-style .card-style .stripe1 {
+  position: absolute;
+  margin-left: 11px;
+  margin-top: 15px;
+  background: #eee;
+  width: 338px;
+  height: 2px;
+}
+.cards-style .card-style .middle {
+  margin-top: 24px;
+  margin-left: 11px;
+}
+.cards-style .card-style .middle image {
+  position: absolute;
+  margin-left: 4px;
+  margin-top: 5px;
+  width: 76px;
+  height: 74px;
+}
+.cards-style .card-style .middle .title {
+  position: absolute;
+  margin-left: 91px;
+  width: 249px;
+  height: 24px;
+  line-height: 17px;
+  color: #101010;
+  font-size: 16px;
+  text-align: left;
+  font-family: PingFangSC-bold;
+}
+.cards-style .card-style .middle .pickupTime {
+  position: absolute;
+  margin-left: 90px;
+  margin-top: 50px;
+  width: auto;
+  height: 16px;
+  line-height: 16px;
+  color: #858585;
+  font-size: 14px;
+  text-align: center;
+  font-family: SFUIText-regular;
+}
+.cards-style .card-style .middle .number {
+  position: absolute;
+  margin-left: 316px;
+  margin-top: 55px;
+  width: auto;
+  height: 16px;
+  line-height: 16px;
+  color: #101010;
+  font-size: 14px;
+  text-align: right;
+  font-family: SFUIText-regular;
+}
+.cards-style .card-style .stripe2 {
+  position: absolute;
+  margin-left: 11px;
+  margin-top: 85px;
+  background: #eee;
+  width: 338px;
+  height: 2px;
+}
+.cards-style .card-style .down {
+  margin-top: 120px;
+  display: flex;
+}
+.cards-style .card-style .down .number {
+  margin-left: 150px;
+  line-height: 17px;
+  font-size: 16px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.cards-style .card-style .down .price {
+  margin-left: 20px;
+  line-height: 17px;
+  color: rgba(16, 16, 16, 0.99);
+  font-size: 18px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.cards-style .card-style .payNow {
+  margin-top: 15px;
+  margin-left: 250px;
+  width: 80px;
+  height: 26px;
+  line-height: 24px;
+  border-radius: 22px;
+  background-color: #0050b3;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  font-family: Arial;
+  border: 1px solid #0050b3;
+}
+.cards-style .card-style .buyAgain {
+  margin-top: 15px;
+  margin-left: 250px;
+  width: 80px;
+  height: 26px;
+  line-height: 24px;
+  border-radius: 22px;
+  text-align: center;
+  border: 1px solid #0050b3;
+  color: #0050b3;
+  font-size: 13px;
+  text-align: center;
+  font-family: PingFangSC-regular;
+}
+.bottom-bar {
+  z-index: 10;
+  position: fixed;
+  top: 1132rpx;
+  width: 750rpx;
+  height: 34px;
+  line-height: 20px;
+  background-color: white;
+  text-align: center;
+  border: 1px solid rgba(255, 0, 0, 0);
+}
+.bottom-bar .line {
+  margin-left: 242rpx;
+  margin-top: 42rpx;
+  width: 134px;
+  height: 5px;
+  border-radius: 3px;
+  background-color: black;
+  text-align: center;
+}
+

@@ -2,6 +2,7 @@
 /* 水平间距 */
 /* 水平间距 */
 .fixbar {
+  display: flex;
   z-index: 1;
   position: fixed;
   top: 990rpx;
@@ -12,11 +13,12 @@
   border-width: 1px;
   border-style: solid;
 }
-.fixbar checkbox {
+.fixbar checkbox-group {
   margin-top: 30rpx;
   margin-left: 20rpx;
 }
 .fixbar label:nth-child(2) {
+  margin-top: 35rpx;
   margin-left: 20rpx;
   font-family: SourceHanSansSC;
   font-weight: 400;
@@ -28,23 +30,47 @@
   text-decoration: none;
 }
 .fixbar label:nth-child(3) {
+  margin-top: 35rpx;
   margin-left: 100rpx;
+  width: 42px;
+  height: 20px;
+  color: #101010;
+  font-size: 14px;
+  text-align: left;
+  font-family: SourceHanSansSC-bold;
 }
 .fixbar label:nth-child(4) {
+  margin-top: 35rpx;
   margin-left: 10rpx;
+  width: 57px;
+  height: 22px;
+  color: #0050b3;
+  font-size: 16px;
+  text-align: left;
+  font-family: PingFangSC-bold;
 }
 .fixbar button {
   position: fixed;
-  top: 1000rpx;
+  top: 1004rpx;
   left: 500rpx;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 100px;
+  background-color: #0050b3;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  font-family: Arial;
+  border: 1px solid #0050b3;
 }
 .goods {
-  height: 100%;
+  margin-bottom: 150rpx;
 }
 .goods .goodsCard {
   display: flex;
   margin: 10rpx 0 10rpx 0;
-  height: 300rpx;
+  height: 246rpx;
   background-color: white;
   border-style: none;
   border-color: unset;
@@ -52,20 +78,19 @@
   /* color: rgb(255, 255, 255); */
   border-radius: 8px 12px 12px;
 }
-.goods .goodsCard checkbox {
+.goods .goodsCard checkbox-group {
   margin-top: 100rpx;
+  margin-left: 22rpx;
 }
 .goods .goodsCard image {
-  overflow: hidden;
-  border-color: #bbbbbb;
-  border-width: 0px;
-  border-style: solid;
-  border-radius: 8rpx;
-  box-shadow: none;
-  width: 486rpx;
-  height: 237rpx;
-  margin-left: 10rpx;
-  margin-top: 10rpx;
+  margin-left: 0px;
+  margin-top: 22px;
+  width: 140px;
+  height: 84px;
+  border-radius: 4px;
+}
+.goods .goodsCard view {
+  margin-top: 10px;
 }
 .goods .goodsCard view view:nth-child(1) {
   font-family: PingFangSC;
@@ -77,6 +102,9 @@
   line-height: 20px;
   text-decoration: none;
   margin-left: 10rpx;
+}
+.goods .goodsCard view view:nth-child(2) {
+  display: flex;
 }
 .goods .goodsCard view view:nth-child(2) text:nth-child(1) {
   font-family: PingFangSC;

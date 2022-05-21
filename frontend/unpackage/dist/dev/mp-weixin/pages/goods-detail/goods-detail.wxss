@@ -1,0 +1,78 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.title {
+  margin-top: 11px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-family: PingFangSC-bold;
+  color: #101010;
+  font-size: 16px;
+}
+.goods-image {
+  height: 700rpx;
+}
+.goods-image image {
+  width: 100%;
+  height: 100%;
+}
+.box1 {
+  padding: 20rpx;
+}
+.box1 .price {
+  font-size: 35rpx;
+  color: #4876FF;
+  line-height: 80rpx;
+}
+.box1 .price text:nth-child(2) {
+  color: #ccc;
+  font-size: 28rpx;
+  text-decoration: line-through;
+  margin-left: 20rpx;
+}
+.box1 .goods_name {
+  font-size: 32rpx;
+  line-height: 60rpx;
+}
+.goods_nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.line {
+  height: 24rpx;
+  width: 750rpx;
+  background: #eee;
+}
+.box2 {
+  margin-left: 13px;
+  width: 352px;
+  height: 132px;
+  line-height: 20px;
+  border-radius: 8px;
+  background-color: rgba(117, 181, 215, 0.5);
+  text-align: left;
+}
+.box2 view {
+  margin-left: 25px;
+  line-height: 32px;
+  color: #101010;
+  font-size: 14px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
+.box3 {
+  padding-bottom: 100rpx;
+}
+.box3 .tit {
+  font-size: 32rpx;
+  padding-left: 10rpx;
+  border-bottom: 1px solid #eee;
+  line-height: 70rpx;
+}
+.box3 .content {
+  padding: 20rpx;
+  font-size: 28rpx;
+  line-height: 50rpx;
+}
+

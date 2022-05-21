@@ -3,13 +3,14 @@
 		<uni-search-bar @confirm="search" @input="input"></uni-search-bar>
 		<view class="main">
 			<scroll-view class="left" scroll-y>
-				<view v-for="(cate, index) in cates" :key="index">
+				<view v-for="(cate, index) in cates" :class="active==index? 'active' : ''"
+					:key="index" @click="clickLeft(index)">
 					{{cate}}
 				</view>
 			</scroll-view>
 			<scroll-view class="right" scroll-y>
-				<view class="goodsCard" v-for="(item, index) in items" :key="index">
-					<image mode="aspectFit" :src="item.img"></image>
+				<view class="goodsCard" v-for="(item, index) in items" :key="index" v-if="item.type == active">
+					<image mode="aspectFit" :src="item.img" @click="clickItem()"></image>
 					<view>{{item.title}}</view>
 					<view>提货时间：{{item.time}}</view>
 					<view>
@@ -32,71 +33,78 @@
 					"蛋类区", "豆制品", "调味品", "米面粮油", "餐食烘焙", "营养早餐",
 					"鲜奶制品", "休闲食品", "酒水饮料"
 				],
+				active: 0,
 				items: [{
 						img: "../../static/market/item1.png",
 						title: "语农 散装土鸡蛋  360枚 40斤",
 						time: "08月13日",
 						price: "28.8",
-						sold: "2700"
+						sold: "2700",
+						type: 0
 					},
 					{
 						img: "../../static/market/item2.png",
 						title: "语农 散装土鸡蛋  360枚 40斤",
 						time: "08月13日",
 						price: "28.8",
-						sold: "2700"
+						sold: "2700",
+						type: 0
 					},
 					{
 						img: "../../static/market/item3.png",
 						title: "语农 散装土鸡蛋  360枚 40斤",
 						time: "08月13日",
 						price: "28.8",
-						sold: "2700"
+						sold: "2700",
+						type: 0
 					}
 				]
 			}
 		},
 		methods: {
-
+			clickLeft: function(index){
+				this.active = index
+			},
+			clickItem: function(){
+				uni.navigateTo({
+					url : '../../pages/goods-detail/goods-detail'
+				})
+			}
 		}
 	}
 </script>
 
 <style lang=scss>
-	page {
-		height: 100%;
-	}
 
 	.market {
-		height: 100%;
-
 		.main {
-			height: 100%;
 			display: flex;
-
 			.left {
 				border-right: 10rpx solid #eee;
-				height: 100%;
 				width: 208rpx;
+				height: 89vh;
 				background-color: #FFFFFF;
-
+				.active {
+					background-color: rgba(50, 128, 28, 1);
+					border-radius: 18px;
+					color: #FFFFFF;
+				}
 				view {
+					width: 170rpx;
 					height: 52rpx;
-					line-height: 100rpx;
+					line-height: 48rpx;
 					color: #333;
 					text-align: center;
 					font-family: OPPOSans;
 					font-weight: 400;
 					font-size: 28rpx;
-					margin: 20rpx 0 20rpx 0;
+					margin: 20rpx 0 20rpx 10rpx;
 				}
-
 			}
 
 			.right {
-				height: 110%;
 				width: 532rpx;
-
+				height: 89vh;
 				.goodsCard {
 					margin: 10rpx 0 10rpx 0;
 					width: 510rpx;

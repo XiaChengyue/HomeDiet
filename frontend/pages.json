@@ -1,25 +1,37 @@
 {
 	"pages": [
 		{
-		    "path" : "pages/mine/mine",
+			"path": "pages/market/market",
+			"style": {
+				"navigationBarTitleText": "生鲜超市",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+		    "path" : "pages/goods-detail/goods-detail",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "我的",
-				"navigationBarTextStyle": "white",
-		        "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#bae7ff"
+		        "navigationBarTitleText": "商品信息",
+		        "enablePullDownRefresh": false
 		    }
 		},
 		{
-		    "path" : "pages/cart/cart",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-		,
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#bae7ff"
+			}
+		},
+		{
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"enablePullDownRefresh": false
+			}
+
+		},
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -28,9 +40,9 @@
 			}
 		},
 		{
-			"path": "pages/market/market",
+			"path": "pages/order/order",
 			"style": {
-				"navigationBarTitleText": "生鲜超市",
+				"navigationBarTitleText": "订单管理",
 				"enablePullDownRefresh": false
 			}
 		}
@@ -46,28 +58,28 @@
 	},
 	"tabBar": {
 		"height": "116rpx",
-		"fontSize":"28rpx",
-		"backgroundColor":"#FBFBFB",
-		"borderStyle":"white",
+		"fontSize": "28rpx",
+		"backgroundColor": "#FBFBFB",
+		"borderStyle": "white",
 		"list": [{
 				"text": "首页",
 				"pagePath": "pages/index/index",
-				"iconPath":"static/icons/home.png"
+				"iconPath": "static/icons/home.png"
 			},
 			{
 				"text": "生鲜超市",
 				"pagePath": "pages/market/market",
-				"iconPath":"static/icons/market.png"
+				"iconPath": "static/icons/market.png"
 			},
 			{
 				"text": "购物车",
 				"pagePath": "pages/cart/cart",
-				"iconPath":"static/icons/cart.png"
+				"iconPath": "static/icons/cart.png"
 			},
 			{
 				"text": "我的",
 				"pagePath": "pages/mine/mine",
-				"iconPath":"static/icons/mine.png"
+				"iconPath": "static/icons/mine.png"
 			}
 		]
 	}
