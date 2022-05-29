@@ -20,19 +20,22 @@
   padding: 20rpx;
 }
 .box1 .price {
-  font-size: 35rpx;
+  font-size: 64rpx;
   color: #4876FF;
   line-height: 80rpx;
 }
 .box1 .price text:nth-child(2) {
   color: #ccc;
-  font-size: 28rpx;
+  font-size: 48rpx;
   text-decoration: line-through;
   margin-left: 20rpx;
 }
-.box1 .goods_name {
-  font-size: 32rpx;
-  line-height: 60rpx;
+.box1 view:nth-child(2) {
+  display: flex;
+  view-font-size: 32rpx;
+}
+.box1 view:nth-child(2) uni-number-box {
+  margin-left: 150rpx;
 }
 .goods_nav {
   position: fixed;

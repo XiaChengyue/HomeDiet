@@ -57,7 +57,7 @@ uni-search-bar {
 }
 .cards-style .card-style {
   width: 360px;
-  height: 210px;
+  height: auto;
   border-radius: 5px;
   background-color: #ffffff;
   margin: 20rpx 20rpx 20rpx 20rpx;
@@ -78,32 +78,30 @@ uni-search-bar {
   margin-top: 10px;
 }
 .cards-style .card-style .top .label2 {
-  margin-left: 206px;
+  position: absolute;
+  margin-left: 300px;
   margin-top: 10px;
 }
 .cards-style .card-style .stripe1 {
-  position: absolute;
   margin-left: 11px;
   margin-top: 15px;
   background: #eee;
   width: 338px;
   height: 2px;
 }
-.cards-style .card-style .middle {
+.cards-style .card-style .middle .order {
   margin-top: 24px;
   margin-left: 11px;
 }
-.cards-style .card-style .middle image {
-  position: absolute;
+.cards-style .card-style .middle .order image {
   margin-left: 4px;
-  margin-top: 5px;
   width: 76px;
   height: 74px;
 }
-.cards-style .card-style .middle .title {
+.cards-style .card-style .middle .order .title {
   position: absolute;
-  margin-left: 91px;
-  width: 249px;
+  margin-left: 10px;
+  width: auto;
   height: 24px;
   line-height: 17px;
   color: #101010;
@@ -111,10 +109,10 @@ uni-search-bar {
   text-align: left;
   font-family: PingFangSC-bold;
 }
-.cards-style .card-style .middle .pickupTime {
+.cards-style .card-style .middle .order .description {
   position: absolute;
-  margin-left: 90px;
-  margin-top: 50px;
+  margin-left: 10px;
+  margin-top: 30px;
   width: auto;
   height: 16px;
   line-height: 16px;
@@ -123,28 +121,38 @@ uni-search-bar {
   text-align: center;
   font-family: SFUIText-regular;
 }
-.cards-style .card-style .middle .number {
+.cards-style .card-style .middle .order .number {
   position: absolute;
-  margin-left: 316px;
-  margin-top: 55px;
+  margin-left: 176px;
+  margin-top: 30px;
   width: auto;
   height: 16px;
   line-height: 16px;
-  color: #101010;
+  color: rgba(133, 133, 133, 0.99);
   font-size: 14px;
   text-align: right;
   font-family: SFUIText-regular;
 }
+.cards-style .card-style .middle .order .price {
+  position: absolute;
+  margin-left: 171px;
+  margin-top: 3px;
+  line-height: 12px;
+  color: rgba(16, 16, 16, 0.99);
+  font-size: 18px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+}
 .cards-style .card-style .stripe2 {
   position: absolute;
   margin-left: 11px;
-  margin-top: 85px;
+  margin-top: 15px;
   background: #eee;
   width: 338px;
   height: 2px;
 }
 .cards-style .card-style .down {
-  margin-top: 120px;
+  margin-top: 30px;
   display: flex;
 }
 .cards-style .card-style .down .number {
@@ -154,8 +162,8 @@ uni-search-bar {
   text-align: left;
   font-family: PingFangSC-regular;
 }
-.cards-style .card-style .down .price {
-  margin-left: 20px;
+.cards-style .card-style .down .cost {
+  margin-left: 32px;
   line-height: 17px;
   color: rgba(16, 16, 16, 0.99);
   font-size: 18px;
@@ -189,6 +197,9 @@ uni-search-bar {
   font-size: 13px;
   text-align: center;
   font-family: PingFangSC-regular;
+}
+.cards-style .card-style .blank {
+  height: 15px;
 }
 .bottom-bar {
   z-index: 10;

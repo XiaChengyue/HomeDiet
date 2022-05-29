@@ -31,7 +31,19 @@
 }
 .fixbar label:nth-child(3) {
   margin-top: 35rpx;
-  margin-left: 100rpx;
+  margin-left: 40rpx;
+  font-family: SourceHanSansSC;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255, 0, 0, 0.7);
+  font-style: normal;
+  letter-spacing: 0px;
+  line-height: 20px;
+  text-decoration: none;
+}
+.fixbar label:nth-child(4) {
+  margin-top: 35rpx;
+  margin-left: 40rpx;
   width: 42px;
   height: 20px;
   color: #101010;
@@ -39,10 +51,10 @@
   text-align: left;
   font-family: SourceHanSansSC-bold;
 }
-.fixbar label:nth-child(4) {
-  margin-top: 35rpx;
-  margin-left: 10rpx;
-  width: 57px;
+.fixbar label:nth-child(5) {
+  margin-top: 32rpx;
+  margin-left: 0rpx;
+  width: auto;
   height: 22px;
   color: #0050b3;
   font-size: 16px;

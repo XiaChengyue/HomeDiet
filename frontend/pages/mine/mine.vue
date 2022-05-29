@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view class="top">
-			<image src="../../static/mine/user.png"></image>
-			<label>146****8006</label>
+			<image :src="avatar"></image>
+			<label>{{userName}}</label>
 			<label>账号管理</label>
 			<image src="../../static/icons/antOutline-right-circle.svg"></image>
 		</view>
@@ -17,7 +17,7 @@
 		<view class="label1"><text>个人信息/Personal Imformation</text></view>
 		<view class="label1"><text>在线服务/Online Service</text></view>
 		<view class="label1"><text>帮助与反馈/Help and Feedback</text></view>
-		<view class="exit">退出登录</view>
+		<view class="exit" @click="login()">{{buttonText}}</view>
 	</view>
 </template>
 
@@ -25,6 +25,9 @@
 	export default {
 		data() {
 			return {
+				buttonText: "登录",
+				userName: "未登录",
+				avatar: "../../static/mine/user.png",
 				navs: [{
 						icon :'/static/icons/antFill-bulb.svg',
 						title: '全部订单',
@@ -55,6 +58,91 @@
 					url
 				})
 			},
+		    getUserInfo() {
+				return new Promise((resolve, reject) => {
+					wx.getUserProfile({
+						lang: 'zh_CN',
+						desc: '用户登录', 
+						success: (res) => {
+							resolve(res.userInfo)
+						},
+						fail: (err) => {
+							reject(err)
+						}
+					})
+				})
+			},
+ 
+			getLogin() {
+				return new Promise((resolve, reject) => {
+					wx.login({
+						success(res) {
+							resolve(res.code)
+						},
+						fail: (err) => {
+							reject(err)
+						}
+					})
+				})
+			},
+ 
+			login() {
+				if(this.buttonText == "登录")
+				{
+					let userInfo =this.getUserInfo();
+					let wxCode =this.getLogin();
+					
+	 
+					Promise.all([userInfo, wxCode]).then((res0) => {
+						// console.log("userInfo, wxCode:",res0) //都获取权限成功
+						this.avatar = res0[0].avatarUrl
+						this.userName = res0[0].nickName
+						return new Promise((resolve, reject) => {
+								uni.request({
+									url: "https://api.weixin.qq.com/sns/jscode2session",
+									method: 'GET',
+									data: {
+										appid: "wx39add241f0f6d1c0",
+										secret: "f6f698f11d4bf8ed68d254d9856f62a7",
+										js_code: res0[1],
+										grant_type: "authorization_code"
+									},
+									success: (res1) => {
+										if (res1.statusCode != 200) {
+											console.log("res1:",res1)
+											return uni.showToast({
+												title: '获取数据失败'
+											})
+										}
+										resolve(res1)
+									},
+									fail: (err1) => {
+										uni.showToast({
+											title: '请求接口失败'
+										})
+										reject(err1)
+									}
+								})
+							})
+					}).then((res2) => {
+						return new Promise((resolve, reject) => {
+							// console.log("res2", res2)
+							this.buttonText = "退出登录"
+							getApp().globalData.openid = res2.data.openid
+							resolve();
+						})
+					})
+				}
+				else {
+					this.buttonText = "登录"
+					this.userName = "未登录"
+					this.avatar = "../../static/mine/user.png"
+					getApp().globalData.openid = 1777
+				}
+			}
+		},
+		onTabItemTap:function(){
+			console.log(getApp().globalData.openid)
 		}
 	}
 </script>

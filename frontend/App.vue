@@ -9,6 +9,9 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		globalData: {
+			openid: 1777
 		}
 	}
 </script>

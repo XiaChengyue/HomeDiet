@@ -32,12 +32,11 @@
     "showES6CompileOption": false,
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true,
-    "useStaticServer": true,
-    "minifyWXML": true
+    "useStaticServer": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.23.4",
-  "appid": "touristappid",
+  "appid": "wx39add241f0f6d1c0",
   "projectname": "Homediet",
   "condition": {},
   "editorSetting": {

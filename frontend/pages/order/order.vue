@@ -11,32 +11,36 @@
 			</view>
 		</view>
 		<view class="cards-style">
-			<view v-for="(card, index) in cards" :key="index"
-				v-if="activeType=='全部' || card.type==activeType" class="card-style">
+			<view v-for="(order, index) in orders" :key="index"
+				v-if="activeIndex==0 || order.state==activeIndex" class="card-style">
 				<view class="top">
-					<text class="label1">{{card.pickupTime}}</text>
-					<text class="label2">{{card.type}}</text>
+					<text class="label1">{{order.time}}</text>
+					<text class="label2">{{tabNames[order.state]}}</text>
 				</view>
 				<view class="stripe1"></view>
-				<view class="middle">
-					<image :src="card.imagePath"></image>
-					<text class="title">{{card.title}}</text>
-					<text class="pickupTime">{{card.pickupTime}}提货</text>
-					<text class="number">x {{card.number}}</text>
+				<view v-for="(myorder, index) in order.myorders" :key="index" class="middle">
+					<view class="order">
+						<image :src="myorder.item.pic"></image>
+						<text class="title">{{myorder.item.name}}</text>
+						<text class="description">{{myorder.item.des}}</text>
+						<text class="number">x{{myorder.num}}</text>
+						<text class="price">￥{{myorder.item.price}}</text>
+					</view>
 				</view>
 				<view class="stripe2"></view>
 				<view class="down">
-					<text class="number">共{{card.number}}件 应付总额： </text>
-					<text class="price">￥{{card.cost}}</text>
+					<text class="number"> 应付总额： </text>
+					<text class="cost">￥{{order.totalCost}}</text>
 				</view>
-				<view :class="card.type=='待付款' ? 'payNow' : 'buyAgain'">
-					{{card.type=='待付款' ? '立即付款' : '再次购买'}}
+				<view :class="order.state==1 ? 'payNow' : 'buyAgain'" @click="createOrder(index)">
+					{{order.state== 1 ? '立即付款' : '再次购买'}}
 				</view>
+				<view class="blank"></view>
 			</view>
 		</view>
-		<view class="bottom-bar">
+		<!-- <view class="bottom-bar">
 			<view class="line"></view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -45,78 +49,74 @@
 		data() {
 			return {
 				activeIndex: 0,
-				activeType: "全部",
 				tabNames: [
 					"全部",
 					"待付款",
 					"待提货",
 					"已提货"
 				],
-				cards: [{
-						tradeTime: "2021-05-01",
-						imagePath: "../../static/market/item2.png",
-						title: "商品1",
-						pickupTime: "2021-05-20",
-						number: 2,
-						cost: 169.00,
-						type: "已提货"
-					},
-					{
-						tradeTime: "2021-05-01",
-						imagePath: "../../static/market/item2.png",
-						title: "商品2",
-						pickupTime: "2021-05-20",
-						number: 2,
-						cost: 169.00,
-						type: "已提货"
-					},
-					{
-						tradeTime: "2021-05-01",
-						imagePath: "../../static/market/item2.png",
-						title: "商品3",
-						pickupTime: "2021-05-20",
-						number: 2,
-						cost: 169.00,
-						type: "待付款"
-					},
-					{
-						tradeTime: "2021-05-01",
-						imagePath: "../../static/market/item2.png",
-						title: "商品4",
-						pickupTime: "2021-05-20",
-						number: 2,
-						cost: 169.00,
-						type: "待付款"
-					}
+				orders: [
 				]
 			}
 		},
 		methods: {
+			async createOrder(index) {
+				// console.log(this.orders[index].myorders)
+				var myorders = this.orders[index].myorders
+				var tmporders = []
+				for(let i = 0; i < myorders.length; i++) {
+					var tmporder = {
+						itemid: myorders[i].item.id,
+						num: myorders[i].num,
+						openid: getApp().globalData.openid
+					}
+					tmporders.push(tmporder)
+				}
+				// console.log(tmporders)
+				
+				const res = await this.$myRequest({
+					url: '/myorder/add',
+					data: {
+						myOrders: tmporders,
+						openid: getApp().globalData.openid
+					},
+					method : "POST"
+				})
+				
+				Promise.all([res]).then(() => {
+					uni.showToast({
+						title: `下单成功`,
+						icon: 'none'
+					})
+					this.getOrderDatas()
+				})
+			},
 			tabClick: function(index) {
 				// console.log(index)
 				this.activeIndex = index
-				switch(index)
-				{
-					case 0:
-						this.activeType = '全部'
-						break
-					case 1:
-						this.activeType = '待付款'
-						break
-					case 2:
-						this.activeType = '待提货'
-						break
-					case 3:
-						this.activeType = '已提货'
-						break
-					default:
-						this.activeType = '全部'
+			},
+			async getOrderDatas() {
+				const res = await this.$myRequest({
+					url: '/myorder?openid=' + getApp().globalData.openid
+				})
+				console.log(res.data.data)
+				this.orders = res.data.data
+				console.log(this.orders)
+				for(var i = 0; i < this.orders.length; i++) {
+					var totalCost = 0;
+					for(var j = 0; j < this.orders[i].myorders.length; j++) {
+						var myorder = this.orders[i].myorders[j]
+						totalCost += myorder.item.price * myorder.num
+					}
+					this.$set(this.orders[i], 'totalCost', totalCost)
 				}
 			}
+			
 		},
 		onLoad: function(option) {
 			// console.log(option.index)
 			this.tabClick(option.index)
+			this.getOrderDatas()
 		}
 	}
 </script>
@@ -182,7 +182,7 @@
 		top: 200rpx;
 		.card-style {
 			width: 360px;
-			height: 210px;
+			height: auto;
 			border-radius: 5px;
 			background-color: #ffffff;
 			margin: 20rpx 20rpx 20rpx 20rpx;
@@ -201,12 +201,12 @@
 					margin-top: 10px;
 				}
 				.label2 {
-					margin-left: 206px;
+					position: absolute;
+					margin-left: 300px;
 					margin-top: 10px;
 				}
 			}
 			.stripe1{
-				position: absolute;
 				margin-left: 11px;
 				margin-top: 15px;
 				background: #eee;
@@ -214,61 +214,71 @@
 				height: 2px;
 			}
 			.middle {
-				margin-top: 24px;
-				margin-left: 11px;
-				image {
-					position: absolute;
-					margin-left: 4px;
-					margin-top: 5px;
-					width: 76px;
-					height: 74px;
-				}
-				.title{
-					position: absolute;
-					margin-left: 91px;
-					width: 249px;
-					height: 24px;
-					line-height: 17px;
-					color: rgba(16, 16, 16, 100);
-					font-size: 16px;
-					text-align: left;
-					font-family: PingFangSC-bold;
-				}
-				.pickupTime {
-					position: absolute;
-					margin-left: 90px;
-					margin-top: 50px;
-					width: auto;
-					height: 16px;
-					line-height: 16px;
-					color: rgba(133, 133, 133, 100);
-					font-size: 14px;
-					text-align: center;
-					font-family: SFUIText-regular;
-				}
-				.number {
-					position: absolute;
-					margin-left: 316px;
-					margin-top: 55px;
-					width: auto;
-					height: 16px;
-					line-height: 16px;
-					color: rgba(16, 16, 16, 99);
-					font-size: 14px;
-					text-align: right;
-					font-family: SFUIText-regular;
+				.order {
+					margin-top: 24px;
+					margin-left: 11px;
+					image {
+						margin-left: 4px;
+						width: 76px;
+						height: 74px;
+					}
+					.title{
+						position: absolute;
+						margin-left: 10px;
+						width: auto;
+						height: 24px;
+						line-height: 17px;
+						color: rgba(16, 16, 16, 100);
+						font-size: 16px;
+						text-align: left;
+						font-family: PingFangSC-bold;
+					}
+					.description {
+						position: absolute;
+						margin-left: 10px;
+						margin-top: 30px;
+						width: auto;
+						height: 16px;
+						line-height: 16px;
+						color: rgba(133, 133, 133, 100);
+						font-size: 14px;
+						text-align: center;
+						font-family: SFUIText-regular;
+					}
+					.number {
+						position: absolute;
+						margin-left: 176px;
+						margin-top: 30px;
+						width: auto;
+						height: 16px;
+						line-height: 16px;
+						color: rgba(133, 133, 133, 0.99);
+						font-size: 14px;
+						text-align: right;
+						font-family: SFUIText-regular;
+					}
+					.price {
+						position: absolute;
+						margin-left: 171px;
+						margin-top: 3px;
+						line-height: 12px;
+						color: rgba(16, 16, 16, 0.99);
+						font-size: 18px;
+						text-align: left;
+						font-family: PingFangSC-regular;
+					}
 				}
 			}
 			.stripe2{
 				position: absolute;
 				margin-left: 11px;
-				margin-top: 85px;
+				margin-top: 15px;
 				background: #eee;
 				width: 338px;
 				height: 2px;
 			}
 			.down {
-				margin-top: 120px;
+				margin-top: 30px;
 				display: flex;
 				.number {
 					margin-left: 150px;
@@ -277,8 +287,8 @@
 					text-align: left;
 					font-family: PingFangSC-regular;
 				}
-				.price{
-					margin-left: 20px;
+				.cost{
+					margin-left: 32px;
 					line-height: 17px;
 					color: rgba(16, 16, 16, 0.99);
 					font-size: 18px;
@@ -313,6 +323,9 @@
 				font-size: 13px;
 				text-align: center;
 				font-family: PingFangSC-regular;
+			}
+			.blank {
+				height: 15px;
 			}
 		}
 		margin-bottom: 100rpx;

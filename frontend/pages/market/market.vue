@@ -1,6 +1,6 @@
 <template>
 	<view class="market">
-		<uni-search-bar @confirm="search" @input="input"></uni-search-bar>
+		<uni-search-bar @confirm="search"></uni-search-bar>
 		<view class="main">
 			<scroll-view class="left" scroll-y>
 				<view v-for="(cate, index) in cates" :class="active==index? 'active' : ''"
@@ -9,15 +9,15 @@
 				</view>
 			</scroll-view>
 			<scroll-view class="right" scroll-y>
-				<view class="goodsCard" v-for="(item, index) in items" :key="index" v-if="item.type == active">
-					<image mode="aspectFit" :src="item.img" @click="clickItem()"></image>
-					<view>{{item.title}}</view>
-					<view>提货时间：{{item.time}}</view>
+				<view class="goodsCard" v-for="(item, index) in items" :key="index" v-if="item.type == cates[active] || active == 0">
+					<image mode="aspectFit" :src="item.pic" @click="clickItem(item.id)"></image>
+					<view>{{item.name}}</view>
+					<view>{{item.des}}</view>
 					<view>
 						<text>￥{{item.price}}</text>
-						<text>已售{{item.sold}}件</text>
+						<text></text>
 					</view>
-					<button type="primary">加入购物车</button>
+					<button type="primary" @click="buttonClick(item.id)">加入购物车</button>
 				</view>
 			</scroll-view>
 		</view>
@@ -34,42 +34,65 @@
 					"鲜奶制品", "休闲食品", "酒水饮料"
 				],
 				active: 0,
-				items: [{
-						img: "../../static/market/item1.png",
-						title: "语农 散装土鸡蛋  360枚 40斤",
-						time: "08月13日",
-						price: "28.8",
-						sold: "2700",
-						type: 0
-					},
-					{
-						img: "../../static/market/item2.png",
-						title: "语农 散装土鸡蛋  360枚 40斤",
-						time: "08月13日",
-						price: "28.8",
-						sold: "2700",
-						type: 0
-					},
-					{
-						img: "../../static/market/item3.png",
-						title: "语农 散装土鸡蛋  360枚 40斤",
-						time: "08月13日",
-						price: "28.8",
-						sold: "2700",
-						type: 0
-					}
+				items: [
 				]
 			}
 		},
 		methods: {
+			async search(e){
+				console.log(e)
+				const res = await this.$myRequest({
+					url: '/item?name=' + e.value
+				})
+				// console.log(res.data.data)
+				Promise.all([res]).then(() => {
+					this.items = res.data.data
+				})
+			},
 			clickLeft: function(index){
 				this.active = index
 			},
-			clickItem: function(){
+			clickItem: function(id){
 				uni.navigateTo({
-					url : '../../pages/goods-detail/goods-detail'
+					url : '../../pages/goods-detail/goods-detail?id=' + id
+				})
+			},
+			async buttonClick(id) {
+				console.log("点击按钮")
+				// console.log("右侧按钮信息：", e)
+				const res = await this.$myRequest({
+					url: '/cart/add',
+					data: {
+						itemid: id,
+						openid : getApp().globalData.openid
+					},
+					method : "POST"
+				})
+				// console.log("商品数量：", this.info.num)
+				// console.log("加入购物车的商品信息", res)
+				if(res.data.msg == "成功")
+				{
+					uni.showToast({
+						title: `已加入购物车`,
+						icon: 'none'
+					})
+				}
+			},
+			async getMarketDatas() {
+				const res = await this.$myRequest({
+					url: '/item'
+				})
+				// console.log(res.data.data)
+				Promise.all([res]).then(() => {
+					this.items = res.data.data
 				})
 			}
+		},
+		onLoad: function() {
+			this.getMarketDatas()
+		},
+		onTabItemTap: function() {
+			this.getMarketDatas()
 		}
 	}
 </script>
